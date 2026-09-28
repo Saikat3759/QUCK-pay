@@ -21,10 +21,13 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v2
 
+    - name: Initialize Gradle Wrapper
+      run: gradle wrapper
+
     - name: Build APK and AAB Bundle
       run: |
-        gradle assembleRelease
-        gradle bundleRelease
+        ./gradlew assembleRelease --no-daemon
+        ./gradlew bundleRelease --no-daemon
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v3
@@ -37,4 +40,3 @@ jobs:
       with:
         name: QuickPay-PlayStore-AAB
         path: app/build/outputs/bundle/release/
-        
